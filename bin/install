@@ -17,6 +17,7 @@ install () {
     rm -rf "${install_path}"
 
     echo "Creating liquibase bin directory"
+    echo "mkdir -p \"${install_path}\""
     mkdir -p "${install_path}"
 
     echo "Extracting liquibase archive"
