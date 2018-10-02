@@ -12,7 +12,8 @@ install () {
   local -r download_path="${TMP_DOWNLOAD_DIR}/$(get_filename "${version}")"
 
   echo "Downloading liquibase version ${version} from ${download_url}"
-  if curl -Lfs "${download_url}" -o "${download_path}"; then
+  echo "curl -Lvfs \"${download_url}\" -o \"${download_path}\""
+  if curl -Lvfs "${download_url}" -o "${download_path}"; then
     echo "Cleaning liquibase previous binaries"
     rm -rf "${bin_install_path}/liquibase"
 
