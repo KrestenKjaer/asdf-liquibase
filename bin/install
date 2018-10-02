@@ -24,7 +24,7 @@ install () {
     echo "tar zxf ${download_path} -C ${install_path}"
     tar zxf "${download_path}" -C "${install_path}"
     mkdir -p "${install_path}/bin/"
-    ln -sf "${install_path}/bin/liquibase" "${install_path}/liquibase"
+    ln -sfv "${install_path}/liquibase" "${install_path}/bin/liquibase"
   else
     echo "Error: liquibase version ${version} not found" >&2
     exit 1
