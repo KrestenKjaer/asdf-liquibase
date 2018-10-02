@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+list_all () {
+  echo "3.6.2"
+}
+
+list_all

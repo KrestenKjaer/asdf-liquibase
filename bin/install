@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+readonly TMP_DOWNLOAD_DIR="$(mktemp -d -t "liquibase_XXXXXX")"
+
+install () {
+  local -r install_type="$1"
+  local -r version="$2"
+  local -r install_path="$3"
+
+  local -r bin_install_path="${install_path}/bin"
+  local -r download_url="$(get_download_url "${version}")"
+  local -r download_path="${TMP_DOWNLOAD_DIR}/$(get_filename "${version}")"
+
+  echo "Downloading liquibase version ${version} from ${download_url}"
+  if curl -Lfs "${download_url}" -o "${download_path}"; then
+    echo "Cleaning liquibase previous binaries"
+    rm -rf "${bin_install_path}/liquibase"
+
+    echo "Creating liquibase bin directory"
+    mkdir -p "${bin_install_path}"
+
+    echo "Extracting liquibase archive"
+    echo "${download_path} -C ${bin_install_path}"
+    tar zxfv "${download_path}" -C "${bin_install_path}" --strip 1
+    mv "${bin_install_path}/liquibase-v${version}/liquibase" "${bin_install_path}/liquibase"
+  else
+    echo "Error: liquibase version ${version} not found" >&2
+    exit 1
+  fi
+}
+
+get_arch () {
+  uname | tr '[:upper:]' '[:lower:]'
+}
+
+get_filename () {
+  local -r version="$1"
+  local -r platform="$(get_arch)"
+  echo "liquibase-${version}-bin.tar.gz"
+}
+
+get_download_url () {
+  local -r version="$1"
+  local -r filename="$(get_filename "${version}")"
+  echo "https://github.com/liquibase/liquibase/releases/download/liquibase-parent-${version}/${filename}"
+  echo "https://github.com/rancher/rancher-compose/releases/download/v${version}/${filename}"
+}
+
+install "${ASDF_INSTALL_TYPE}" "${ASDF_INSTALL_VERSION}" "${ASDF_INSTALL_PATH}"
