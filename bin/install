@@ -23,7 +23,7 @@ install () {
     echo "Extracting liquibase archive"
     echo "tar zxf ${download_path} -C ${install_path}"
     tar zxf "${download_path}" -C "${install_path}"
-    mv "${install_path}/liquibase-v${version}/liquibase" "${install_path}/bin/liquibase"
+    ln -sf "${install_path}/liquibase" "${install_path}/bin/liquibase"
   else
     echo "Error: liquibase version ${version} not found" >&2
     exit 1
