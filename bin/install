@@ -25,9 +25,9 @@ install () {
 
     echo "Installing missing dependencies"
     echo "-> slf4j-api"
-    curl -Lfs http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar -o "${install_path}/lib/slf4j-api-1.7.25.jar"
+    curl -Lfs http://central.maven.org/maven2/org/slf4j/slf4j-api/1.7.28/slf4j-api-1.7.28.jar -o "${install_path}/lib/slf4j-api-1.7.25.jar"
     echo "-> Postgres jdbc driver"
-    curl -Lfs https://jdbc.postgresql.org/download/postgresql-42.2.5.jar -o "${install_path}/lib/postgresql-42.2.5.jar"
+    curl -Lfs https://jdbc.postgresql.org/download/postgresql-42.2.8.jar -o "${install_path}/lib/postgresql-42.2.5.jar"
   else
     echo "Error: liquibase version ${version} not found" >&2
     exit 1
