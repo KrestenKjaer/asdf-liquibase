@@ -47,7 +47,7 @@ get_filename () {
 get_download_url () {
   local -r version="$1"
   local -r filename="$(get_filename "${version}")"
-  echo "https://github.com/liquibase/liquibase/releases/download/liquibase-parent-${version}/${filename}"
+  echo "https://github.com/liquibase/liquibase/releases/download/${version}/${filename}"
 }
 
 install "${ASDF_INSTALL_TYPE}" "${ASDF_INSTALL_VERSION}" "${ASDF_INSTALL_PATH}"
